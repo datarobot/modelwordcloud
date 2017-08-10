@@ -5,7 +5,7 @@
 \title{Make a word cloud.}
 \usage{
 wordcloud(words, freq, coefficients = NULL, colors = "black", scale = c(4,
-  0.5), min.freq = 3, max.words = Inf, random.order = TRUE,
+  0.5), min.freq = 3, max.words = Inf, random.order = FALSE,
   random.color = FALSE, rot.per = 0, ordered.colors = FALSE,
   bg_color = "#FFFFFF")
 }
@@ -24,7 +24,7 @@ wordcloud(words, freq, coefficients = NULL, colors = "black", scale = c(4,
 
 \item{max.words}{numeric. Don't plot more words than this amount.}
 
-\item{random.order}{logical. Should words be plotted in a random order (TRUE, default) or by frequency?}
+\item{random.order}{logical. Should words be plotted in a random order or by frequency (default FALSE)?}
 
 \item{random.color}{logical. Allocate words a color by random? (default FALSE).}
 

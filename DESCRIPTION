@@ -1,11 +1,10 @@
-Package: wordcloud
+Package: modelwordcloud
 Title: Word Clouds
 Version: 2.6
 Authors@R: "Peter Hurford <peter@peterhuford.com> [aut, cre]"
-Description: Pretty word clouds with support for coefficient coloring.
+Description: Make a word cloud out of text associated with a model
 License: LGPL-2.1
 LazyData: true
 Imports:
-  methods,
-  RColorBrewer
+  methods
 RoxygenNote: 6.0.1
