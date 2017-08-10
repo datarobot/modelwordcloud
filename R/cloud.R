@@ -19,7 +19,6 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
 
   tails <- "g|j|p|q|y"
   last <- 1
-  nc <- length(colors)
   ordered_colors <- !isTRUE(random_color) && is.null(coefficients)
 
   if (ordered_colors && (length(colors) != 1 && length(colors) != length(words))) {
@@ -62,10 +61,10 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
     colors <- colors[ord <= max_words]
   }
   
-  if(random_order) {
+  if (isTRUE(random_order)) {
     ord <- sample.int(length(words))
   } else {
-    ord <- order(freq,decreasing = TRUE)
+    ord <- order(freq, decreasing = TRUE)
   }
 
   words <- words[ord]
@@ -80,8 +79,8 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
   }
 
   freq <- freq[freq >= min_freq]
-  if (ordered_colors) {
-      colors <- colors[ord][freq >= min_freq]
+  if (!ordered_colors) {
+    colors <- colors[ord][freq >= min_freq]
   }
   
   thetaStep <- .1
@@ -96,10 +95,10 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
   
   for(i in seq_along(words)) {
     rotWord <- runif(1) < rot_per
-    r <-0
+    r <- 0
     theta <- runif(1, 0, 2 * pi)
-    x1<-.5
-    y1<-.5
+    x1 <- 0.5
+    y1 <- 0.5
     wid <- strwidth(words[i], cex = size[i])
     ht <- strheight(words[i], cex = size[i])
     #mind your ps and qs
@@ -114,14 +113,14 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
       if (!overlap(x1 - .5 * wid, y1 - .5 * ht, wid, ht) &&
           x1 - .5 * wid > 0 && y1 - .5 * ht > 0 &&
           x1 + .5 * wid < 1 && y1 + .5 * ht < 1) {
-        if (!random_color) {
+        if (!isTRUE(random_color)) {
           if (!is.null(coefficients)) {
             cc <- colors[[round(coefficients[[i]] * (length(colors) - 1)) + 1]]
           } else {
             cc <- colors[i]
           }
         } else {
-         cc <- colors[sample(1:nc,1)]
+         cc <- colors[sample(seq_along(colors), 1)]
         }
         text(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * 90, col = cc)
         boxes[[length(boxes) + 1]] <- c(x1 - .5 * wid, y1 - .5 * ht, wid, ht)
