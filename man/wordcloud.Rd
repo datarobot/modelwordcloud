@@ -6,8 +6,7 @@
 \usage{
 wordcloud(words, freq, coefficients = NULL, colors = "black", scale = c(4,
   0.5), min_freq = 3, max_words = Inf, random_order = FALSE,
-  random_color = FALSE, rot_per = 0, ordered.colors = FALSE,
-  bg_color = "#FFFFFF")
+  random_color = FALSE, rot_per = 0, bg_color = "#FFFFFF")
 }
 \arguments{
 \item{words}{character. A vector of words to plot.}

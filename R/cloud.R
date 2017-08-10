@@ -15,13 +15,18 @@
 wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
                       scale = c(4, .5), min_freq = 3, max_words = Inf,
                       random_order = FALSE, random_color = FALSE, rot_per = 0,
-                      ordered.colors = FALSE, bg_color = "#FFFFFF") { 
+                      bg_color = "#FFFFFF") { 
+
   tails <- "g|j|p|q|y"
   last <- 1
   nc <- length(colors)
-  if (ordered.colors && (length(colors) != 1 && length(colors) != length(words))) {
-    stop("Length of colors does not match length of words vector.")
+
+  if (!isTRUE(random_color) &&
+       is.null(coefficients) &&
+       (length(colors) != 1 && length(colors) != length(words))) {
+         stop("Length of colors does not match length of words vector.")
   }
+
   if(min_freq > max(freq)) { min_freq <- 0 }
 
   overlap <- function(x1, y1, sw1, sh1) {
@@ -54,7 +59,7 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
   ord <- rank(-freq, ties.method = "random")
   words <- words[ord <= max_words]
   freq <- freq[ord <= max_words]
-  if (ordered.colors) {
+  if (ordered_colors) {
       colors <- colors[ord <= max_words]
   }
   
@@ -76,7 +81,7 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
   }
 
   freq <- freq[freq >= min_freq]
-  if (ordered.colors) {
+  if (ordered_colors) {
       colors <- colors[ord][freq >= min_freq]
   }
   
@@ -113,11 +118,8 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
         if (!random_color) {
           if (!is.null(coefficients)) {
             cc <- colors[[round(coefficients[[i]] * (length(colors) - 1)) + 1]]
-          } else if (ordered.colors) {
-            cc <- colors[i]
           } else {
-            cc <- ceiling(nc*normedFreq[i])
-            cc <- colors[cc]
+            cc <- colors[i]
           }
         } else {
          cc <- colors[sample(1:nc,1)]
