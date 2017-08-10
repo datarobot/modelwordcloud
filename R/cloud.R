@@ -5,16 +5,16 @@
 #' @param coefficients numeric. If provided, colors will be assigned according to coefficients.
 #' @param colors character. The colors to use for plotting.
 #' @param scale numeric. The range of sizes.
-#' @param min.freq numeric. Words with less frequency than this will not be plotted.
-#' @param max.words numeric. Don't plot more words than this amount.
-#' @param random.order logical. Should words be plotted in a random order or by frequency (default FALSE)?
-#' @param random.color logical. Allocate words a color by random? (default FALSE).
-#' @param rot.per numeric. Amount of rotation to apply to each word, between 0 and 1. Defaults to 0 (no rotation).
+#' @param min_freq numeric. Words with less frequency than this will not be plotted.
+#' @param max_words numeric. Don't plot more words than this amount.
+#' @param random_order logical. Should words be plotted in a random_order or by frequency (default FALSE)?
+#' @param random_color logical. Allocate words a color by random? (default FALSE).
+#' @param rot_per numeric. Amount of rotation to apply to each word, between 0 and 1. Defaults to 0 (no rotation).
 #' @param bg_color character. The color of the background.
 #' @export
 wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
-                      scale = c(4, .5), min.freq = 3, max.words = Inf,
-                      random.order = FALSE, random.color = FALSE, rot.per = 0,
+                      scale = c(4, .5), min_freq = 3, max_words = Inf,
+                      random_order = FALSE, random_color = FALSE, rot_per = 0,
                       ordered.colors = FALSE, bg_color = "#FFFFFF") { 
   tails <- "g|j|p|q|y"
   last <- 1
@@ -22,7 +22,7 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
   if (ordered.colors && (length(colors) != 1 && length(colors) != length(words))) {
     stop("Length of colors does not match length of words vector.")
   }
-  if(min.freq > max(freq)) { min.freq <- 0 }
+  if(min_freq > max(freq)) { min_freq <- 0 }
 
   overlap <- function(x1, y1, sw1, sh1) {
     s <- 0
@@ -52,32 +52,32 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
   }
   
   ord <- rank(-freq, ties.method = "random")
-  words <- words[ord <= max.words]
-  freq <- freq[ord <= max.words]
+  words <- words[ord <= max_words]
+  freq <- freq[ord <= max_words]
   if (ordered.colors) {
-      colors <- colors[ord <= max.words]
+      colors <- colors[ord <= max_words]
   }
   
-  if(random.order) {
+  if(random_order) {
     ord <- sample.int(length(words))
   } else {
     ord <- order(freq,decreasing = TRUE)
   }
 
   words <- words[ord]
-  words <- words[freq >= min.freq]
+  words <- words[freq >= min_freq]
   freq <- freq[ord]
 
   if (!is.null(coefficients)) {
     coefficients <- coefficients[ord]
-    coefficients <- coefficients[freq >= min.freq]
+    coefficients <- coefficients[freq >= min_freq]
     # Scale coefficients between 0 and 1
     coefficients <- (coefficients - min(coefficients)) / (max(coefficients) - min(coefficients))
   }
 
-  freq <- freq[freq >= min.freq]
+  freq <- freq[freq >= min_freq]
   if (ordered.colors) {
-      colors <- colors[ord][freq >= min.freq]
+      colors <- colors[ord][freq >= min_freq]
   }
   
   thetaStep <- .1
@@ -91,7 +91,7 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
   boxes <- list()
   
   for(i in seq_along(words)) {
-    rotWord <- runif(1) < rot.per
+    rotWord <- runif(1) < rot_per
     r <-0
     theta <- runif(1, 0, 2 * pi)
     x1<-.5
@@ -110,7 +110,7 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
       if (!overlap(x1 - .5 * wid, y1 - .5 * ht, wid, ht) &&
           x1 - .5 * wid > 0 && y1 - .5 * ht > 0 &&
           x1 + .5 * wid < 1 && y1 + .5 * ht < 1) {
-        if (!random.color) {
+        if (!random_color) {
           if (!is.null(coefficients)) {
             cc <- colors[[round(coefficients[[i]] * (length(colors) - 1)) + 1]]
           } else if (ordered.colors) {

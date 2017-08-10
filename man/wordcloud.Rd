@@ -5,8 +5,8 @@
 \title{Make a word cloud.}
 \usage{
 wordcloud(words, freq, coefficients = NULL, colors = "black", scale = c(4,
-  0.5), min.freq = 3, max.words = Inf, random.order = FALSE,
-  random.color = FALSE, rot.per = 0, ordered.colors = FALSE,
+  0.5), min_freq = 3, max_words = Inf, random_order = FALSE,
+  random_color = FALSE, rot_per = 0, ordered.colors = FALSE,
   bg_color = "#FFFFFF")
 }
 \arguments{
@@ -20,15 +20,15 @@ wordcloud(words, freq, coefficients = NULL, colors = "black", scale = c(4,
 
 \item{scale}{numeric. The range of sizes.}
 
-\item{min.freq}{numeric. Words with less frequency than this will not be plotted.}
+\item{min_freq}{numeric. Words with less frequency than this will not be plotted.}
 
-\item{max.words}{numeric. Don't plot more words than this amount.}
+\item{max_words}{numeric. Don't plot more words than this amount.}
 
-\item{random.order}{logical. Should words be plotted in a random order or by frequency (default FALSE)?}
+\item{random_order}{logical. Should words be plotted in a random_order or by frequency (default FALSE)?}
 
-\item{random.color}{logical. Allocate words a color by random? (default FALSE).}
+\item{random_color}{logical. Allocate words a color by random? (default FALSE).}
 
-\item{rot.per}{numeric. Amount of rotation to apply to each word, between 0 and 1. Defaults to 0 (no rotation).}
+\item{rot_per}{numeric. Amount of rotation to apply to each word, between 0 and 1. Defaults to 0 (no rotation).}
 
 \item{bg_color}{character. The color of the background.}
 }
