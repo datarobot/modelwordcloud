@@ -51,3 +51,7 @@ wordcloud(words = words, freq = freqs, coefficients = coefficients, colors = col
 ## Acknowledgements
 
 This work is based upon the `wordcloud` package by Ian Fellows, available from CRAN.
+
+## See Also
+
+* [the colormap package](https://github.com/bhaskarvk/colormap) helps produce large color palletes for use with `wordcloud`.
