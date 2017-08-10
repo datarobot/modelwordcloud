@@ -4,9 +4,7 @@
 
 
 ```r
-library(modelwordcloud)
 data(iris)
-words_and_freqs <- rle(as.character(iris$Species))
 model <- lm(Petal.Width ~ Species, iris)
 summary(model)
 ```
@@ -39,23 +37,13 @@ We can show this in a word cloud:
 
 
 ```r
+words_and_freqs <- rle(as.character(iris$Species))
 freqs <- words_and_freqs$lengths
 words <- words_and_freqs$values
 coefficients <- model$coefficients
 colors <- c("red", "orange", "blue")  # Least associated gets red, most associated gets blue.
+library(modelwordcloud)
 wordcloud(words = words, freq = freqs, coefficients = coefficients, colors = colors)
-```
-
-```
-## setosa 0 1
-```
-
-```
-## versicolor 0.54367666232073 3
-```
-
-```
-## virginica 1 4
 ```
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)

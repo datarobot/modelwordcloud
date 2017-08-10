@@ -71,7 +71,8 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
   if (!is.null(coefficients)) {
     coefficients <- coefficients[ord]
     coefficients <- coefficients[freq >= min.freq]
-    coefficients <- (co - min(co)) / (max(co) - min(co))  # Scale between 0 and 1
+    # Scale coefficients between 0 and 1
+    coefficients <- (coefficients - min(coefficients)) / (max(coefficients) - min(coefficients))
   }
 
   freq <- freq[freq >= min.freq]
