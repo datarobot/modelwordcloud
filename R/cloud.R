@@ -20,11 +20,10 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
   tails <- "g|j|p|q|y"
   last <- 1
   nc <- length(colors)
+  ordered_colors <- !isTRUE(random_color) && is.null(coefficients)
 
-  if (!isTRUE(random_color) &&
-       is.null(coefficients) &&
-       (length(colors) != 1 && length(colors) != length(words))) {
-         stop("Length of colors does not match length of words vector.")
+  if (ordered_colors && (length(colors) != 1 && length(colors) != length(words))) {
+     stop("Length of colors does not match length of words vector.")
   }
 
   if(min_freq > max(freq)) { min_freq <- 0 }
@@ -60,7 +59,7 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
   words <- words[ord <= max_words]
   freq <- freq[ord <= max_words]
   if (ordered_colors) {
-      colors <- colors[ord <= max_words]
+    colors <- colors[ord <= max_words]
   }
   
   if(random_order) {
