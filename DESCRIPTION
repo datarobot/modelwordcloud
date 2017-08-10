@@ -1,0 +1,11 @@
+Package: wordcloud
+Title: Word Clouds
+Version: 2.6
+Authors@R: "Peter Hurford <peter@peterhuford.com> [aut, cre]"
+Description: Pretty word clouds with support for coefficient coloring.
+License: LGPL-2.1
+LazyData: true
+Imports:
+  methods,
+  RColorBrewer
+RoxygenNote: 6.0.1
