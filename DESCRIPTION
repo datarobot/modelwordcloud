@@ -1,6 +1,6 @@
 Package: modelwordcloud
-Title: Word Clouds
-Version: 2.6
+Title: Model Word Clouds
+Version: 0.9
 Authors@R: "Peter Hurford <peter@peterhuford.com> [aut, cre]"
 Description: Make a word cloud out of text associated with a model
 License: LGPL-2.1

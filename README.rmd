@@ -22,3 +22,6 @@ library(modelwordcloud)
 wordcloud(words = words, freq = freqs, coefficients = coefficients, colors = colors)
 ```
 
+## Acknowledgements
+
+This work is based upon the `wordcloud` package by Ian Fellows, available from CRAN.

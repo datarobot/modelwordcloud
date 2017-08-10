@@ -48,3 +48,6 @@ wordcloud(words = words, freq = freqs, coefficients = coefficients, colors = col
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
 
+## Acknowledgements
+
+This work is based upon the `wordcloud` package by Ian Fellows, available from CRAN.
