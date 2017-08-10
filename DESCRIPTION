@@ -7,5 +7,6 @@ License: LGPL-2.1
 LazyData: true
 Imports:
   methods,
-  graphics
+  graphics,
+  stats
 RoxygenNote: 6.0.1
