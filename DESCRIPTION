@@ -6,5 +6,6 @@ Description: Make a word cloud out of text associated with a model
 License: LGPL-2.1
 LazyData: true
 Imports:
-  methods
+  methods,
+  graphics
 RoxygenNote: 6.0.1
