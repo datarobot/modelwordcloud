@@ -1,0 +1,24 @@
+## Modelwordcloud
+
+**Modelwordcloud** is a package that makes a word cloud out of text, primarially based on the associations between that text and a predictive model.
+
+```{R, eval=TRUE}
+library(modelwordcloud)
+data(iris)
+words_and_freqs <- rle(as.character(iris$Species))
+model <- lm(Petal.Width ~ Species, iris)
+summary(model)
+```
+
+As we can see, setosa (represented by the intercept) is the least associated with Petal.Width, wheras virginica is the most associated.
+
+We can show this in a word cloud:
+
+```{R, eval=TRUE}
+freqs <- words_and_freqs$lengths
+words <- words_and_freqs$values
+coefficients <- model$coefficients
+colors <- c("red", "orange", "blue")  # Least associated gets red, most associated gets blue.
+wordcloud(words = words, freq = freqs, coefficients = coefficients, colors = colors)
+```
+

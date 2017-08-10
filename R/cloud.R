@@ -71,6 +71,7 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
   if (!is.null(coefficients)) {
     coefficients <- coefficients[ord]
     coefficients <- coefficients[freq >= min.freq]
+    coefficients <- (co - min(co)) / (max(co) - min(co))  # Scale between 0 and 1
   }
 
   freq <- freq[freq >= min.freq]
@@ -110,7 +111,7 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
           x1 + .5 * wid < 1 && y1 + .5 * ht < 1) {
         if (!random.color) {
           if (!is.null(coefficients)) {
-            cc <- colors[[round(((coefficients[[i]] / 2) + 0.5) * length(colors))]]
+            cc <- colors[[round(coefficients[[i]] * (length(colors) - 1)) + 1]]
           } else if (ordered.colors) {
             cc <- colors[i]
           } else {
