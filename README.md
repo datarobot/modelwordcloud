@@ -50,7 +50,7 @@ wordcloud(words = words, freq = freqs, coefficients = coefficients, colors = col
 
 ## Acknowledgements
 
-This work is based upon the `wordcloud` package by Ian Fellows, available from CRAN.
+This work is based upon [the wordcloud package](https://cran.r-project.org/web/packages/wordcloud/index.html) by Ian Fellows, available from CRAN.
 
 ## See Also
 
