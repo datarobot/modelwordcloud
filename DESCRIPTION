@@ -12,3 +12,4 @@ Imports:
   graphics,
   stats
 RoxygenNote: 6.0.1
+Suggests: testthat
