@@ -11,6 +11,16 @@
 #' @param random_color logical. Allocate words a color by random? (default FALSE).
 #' @param rot_per numeric. Amount of rotation to apply to each word, between 0 and 1. Defaults to 0 (no rotation).
 #' @param bg_color character. The color of the background.
+#' @examples
+#' \dontrun{
+#'   words_and_freqs <- rle(as.character(iris$Species))
+#'   freqs <- words_and_freqs$lengths
+#'   words <- words_and_freqs$values
+#'   coefficients <- model$coefficients
+#'   colors <- c("red", "orange", "blue")
+#'   library(modelwordcloud)
+#'   wordcloud(words = words, freq = freqs, coefficients = coefficients, colors = colors)
+#' }
 #' @export
 wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
                       scale = c(4, 0.5), min_freq = 3, max_words = Inf,
@@ -85,22 +95,22 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
   
   thetaStep <- 0.1
   rStep <- 0.05
-  plot.new()
-  op <- par("mar")
-  par(mar = c(0, 0, 0, 0))
-  plot.window(c(0, 1), c(0, 1), asp = 1)
+  graphics::plot.new()
+  op <- graphics::par("mar")
+  graphics::par(mar = c(0, 0, 0, 0))
+  graphics::plot.window(c(0, 1), c(0, 1), asp = 1)
   normedFreq <- freq / max(freq)
   size <- (scale[1] - scale[2]) * normedFreq + scale[2]
   boxes <- list()
   
   for(i in seq_along(words)) {
-    rotWord <- runif(1) < rot_per
+    rotWord <- stats::runif(1) < rot_per
     r <- 0
-    theta <- runif(1, 0, 2 * pi)
+    theta <- stats::runif(1, 0, 2 * pi)
     x1 <- 0.5
     y1 <- 0.5
-    wid <- strwidth(words[i], cex = size[i])
-    ht <- strheight(words[i], cex = size[i])
+    wid <- graphics::strwidth(words[i], cex = size[i])
+    ht <- graphics::strheight(words[i], cex = size[i])
     #mind your ps and qs
     if (grepl(tails, words[i])) { ht <- ht + ht * 0.2 }
     if (rotWord) {
@@ -122,7 +132,7 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
         } else {
          cc <- colors[sample(seq_along(colors), 1)]
         }
-        text(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * 90, col = cc)
+        graphics::text(x1, y1, words[i], cex = size[i], offset = 0, srt = rotWord * 90, col = cc)
         boxes[[length(boxes) + 1]] <- c(x1 - 0.5 * wid, y1 - 0.5 * ht, wid, ht)
         isOverlaped <- FALSE
       } else {
@@ -137,6 +147,6 @@ wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
       }
     }
   }
-  par(mar = op, bg = bg_color)
+  graphics::par(mar = op, bg = bg_color)
   invisible()
 }

@@ -1,0 +1,68 @@
+\nonstopmode{}
+\documentclass[a4paper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8,latin1]{inputenc}
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `modelwordcloud'}}
+\par\bigskip{\large \today}
+\end{center}
+\begin{description}
+\raggedright{}
+\item[Title]\AsIs{Model Word Clouds}
+\item[Version]\AsIs{0.1}
+\item[Author]\AsIs{Peter Hurford }\email{peter@peterhuford.com}\AsIs{ [aut, cre]}
+\item[Maintainer]\AsIs{Peter Hurford }\email{peter@peterhuford.com}\AsIs{}
+\item[Description]\AsIs{Make a word cloud out of text associated with a model.}
+\item[License]\AsIs{LGPL-2.1}
+\item[LazyData]\AsIs{true}
+\item[Imports]\AsIs{methods, graphics, stats}
+\item[RoxygenNote]\AsIs{6.0.1}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{wordcloud}{Make a word cloud.}{wordcloud}
+%
+\begin{Description}\relax
+Make a word cloud.
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+wordcloud(words, freq, coefficients = NULL, colors = "black", scale = c(4,
+  0.5), min_freq = 3, max_words = Inf, random_order = FALSE,
+  random_color = FALSE, rot_per = 0, bg_color = "#FFFFFF")
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{words}] character. A vector of words to plot.
+
+\item[\code{freq}] numeric. The frequency of those words.
+
+\item[\code{coefficients}] numeric. If provided, colors will be assigned according to coefficients.
+
+\item[\code{colors}] character. The colors to use for plotting.
+
+\item[\code{scale}] numeric. The range of sizes.
+
+\item[\code{min\_freq}] numeric. Words with less frequency than this will not be plotted.
+
+\item[\code{max\_words}] numeric. Don't plot more words than this amount.
+
+\item[\code{random\_order}] logical. Should words be plotted in a random\_order or by frequency (default FALSE)?
+
+\item[\code{random\_color}] logical. Allocate words a color by random? (default FALSE).
+
+\item[\code{rot\_per}] numeric. Amount of rotation to apply to each word, between 0 and 1. Defaults to 0 (no rotation).
+
+\item[\code{bg\_color}] character. The color of the background.
+\end{ldescription}
+\end{Arguments}
+\printindex{}
+\end{document}
