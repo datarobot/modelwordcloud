@@ -2,8 +2,8 @@ Package: modelwordcloud
 Title: Model Word Clouds
 Version: 0.1
 Author: Peter Hurford [aut, cre]
-Maintainer: Peter Hurford <peter@peterhuford.com>
-Authors@R: person("Peter", "Hurford", role = c("aut", "cre"), email = "peter@peterhuford.com")
+Maintainer: Peter Hurford <peter.hurford@datarobot.com>
+Authors@R: person("Peter", "Hurford", role = c("aut", "cre"), email = "peter.hurford@datarobot.com")
 Description: Make a word cloud out of text associated with a model.
 License: LGPL-2.1
 LazyData: true
