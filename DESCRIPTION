@@ -4,7 +4,7 @@ Version: 0.1
 Author: Peter Hurford [aut, cre]
 Maintainer: Peter Hurford <peter.hurford@datarobot.com>
 Authors@R: person("Peter", "Hurford", role = c("aut", "cre"), email = "peter.hurford@datarobot.com")
-Description: Make a word cloud out of text associated with a model.
+Description: Makes a word cloud of text, sized by the frequency of the word, and colored either by user-specified colors or colored by the strength of the coefficient of that text derived from a regression model.
 License: LGPL-2.1
 LazyData: true
 Imports:
