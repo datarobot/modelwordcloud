@@ -35,6 +35,8 @@ wordcloud(words, freq, coefficients = NULL, colors = "black", scale = c(4,
 Make a word cloud.
 }
 \examples{
+  data(iris)
+  model <- lm(Petal.Width ~ Species, iris)
   words_and_freqs <- rle(as.character(iris$Species))
   freqs <- words_and_freqs$lengths
   words <- words_and_freqs$values

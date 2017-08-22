@@ -12,6 +12,8 @@
 #' @param rot_per numeric. Amount of rotation to apply to each word, between 0 and 1. Defaults to 0 (no rotation).
 #' @param bg_color character. The color of the background.
 #' @examples
+#'   data(iris)
+#'   model <- lm(Petal.Width ~ Species, iris)
 #'   words_and_freqs <- rle(as.character(iris$Species))
 #'   freqs <- words_and_freqs$lengths
 #'   words <- words_and_freqs$values
