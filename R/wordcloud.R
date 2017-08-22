@@ -12,7 +12,6 @@
 #' @param rot_per numeric. Amount of rotation to apply to each word, between 0 and 1. Defaults to 0 (no rotation).
 #' @param bg_color character. The color of the background.
 #' @examples
-#' \dontrun{
 #'   words_and_freqs <- rle(as.character(iris$Species))
 #'   freqs <- words_and_freqs$lengths
 #'   words <- words_and_freqs$values
@@ -20,7 +19,6 @@
 #'   colors <- c("red", "orange", "blue")
 #'   library(modelwordcloud)
 #'   wordcloud(words = words, freq = freqs, coefficients = coefficients, colors = colors)
-#' }
 #' @export
 wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
                       scale = c(4, 0.5), min_freq = 3, max_words = Inf,
