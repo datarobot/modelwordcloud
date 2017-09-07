@@ -226,7 +226,7 @@ local({
     }
   })
 
-  test_that("it plots iris from a model object with more than one parameter", {
+  test_that("it plots iris from a model object with two parameters", {
     data(iris)
     model <- lm(Petal.Width ~ Species + Petal.Length, iris)
     colors <- c("red", "orange", "blue")
@@ -238,6 +238,34 @@ local({
       normalized_coeff <- (model$coefficients - min(model$coefficients)) / diff(range(model$coefficients))
       expect_equal(wc$record[[i]]$coefficient, normalized_coeff[[i]])
       expect_equal(wc$record[[i]]$color, colors[[i]])
+    }
+  })
+
+  test_that("it plots iris from a model object with three parameters", {
+    data(iris)
+    model2 <- lm(Petal.Width ~ Species + Sepal.Length + Sepal.Width, iris)
+    expect_warning({wc <- wordcloud(model2, colors = "black")}, "more than one parameter")
+    expect_true(wc$status)
+    expect_equal(length(wc$record), length(unique(iris$Species)))
+    for (i in seq_along(wc$record)) {
+      expect_equal(wc$record[[i]]$word, as.character(unique(iris$Species)[[i]]))
+      normalized_coeff <- (model2$coefficients - min(model2$coefficients)) / diff(range(model2$coefficients))
+      expect_equal(wc$record[[i]]$coefficient, normalized_coeff[[i]])
+      expect_equal(wc$record[[i]]$color, "black")
+    }
+  })
+
+  test_that("it plots iris from a model object with four parameters", {
+    data(iris)
+    model3 <- lm(Petal.Width ~ Species + Sepal.Length + Sepal.Width + Petal.Length, iris)
+    expect_warning({wc <- wordcloud(model3, colors = "black")}, "more than one parameter")
+    expect_true(wc$status)
+    expect_equal(length(wc$record), length(unique(iris$Species)))
+    for (i in seq_along(wc$record)) {
+      expect_equal(wc$record[[i]]$word, as.character(unique(iris$Species)[[i]]))
+      normalized_coeff <- (model3$coefficients - min(model3$coefficients)) / diff(range(model3$coefficients))
+      expect_equal(wc$record[[i]]$coefficient, normalized_coeff[[i]])
+      expect_equal(wc$record[[i]]$color, "black")
     }
   })
 

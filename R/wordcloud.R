@@ -39,15 +39,21 @@ wordcloud <- function(model_object = NULL, words = NULL, freq = NULL, coefficien
   }
 
   if (!is.null(model_object)) {
-    features <- model_object$call[[2]][[3]]
+    features <- model_object$call$formula[[3]]
     if (length(features) == 1) {
       text_feature <- as.character(features)
       coefficients <- as.numeric(model_object$coefficients)
     } else {
-      text_feature <- as.character(features[[2]])
+      text_feature <- features[[2]]
+      while (length(text_feature) > 1) {
+        text_feature <- text_feature[[2]]
+      }
+      text_feature <- as.character(text_feature)
       warning("There is more than one parameter in your model. The first parameter, ",
               sQuote(text_feature), " is being used as your text feature.")
-      coefficients <- as.numeric(model_object$coefficients[seq(length(model_object$coefficients) - length(features) + 2)])
+      coefficients <- as.numeric(model_object$coefficients)
+      num_terms <- length(all.vars(model_object$call$formula))
+      coefficients <- coefficients[seq(length(coefficients) - num_terms + 2)]
     }
     words_and_freqs <- rle(as.character(model_object$model[[text_feature]]))
     freq <- words_and_freqs$lengths
