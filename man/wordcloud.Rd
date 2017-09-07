@@ -4,11 +4,15 @@
 \alias{wordcloud}
 \title{Make a word cloud.}
 \usage{
-wordcloud(words, freq, coefficients = NULL, colors = "black", scale = c(4,
-  0.5), min_freq = 3, max_words = Inf, random_order = FALSE,
+wordcloud(model_object = NULL, words = NULL, freq = NULL,
+  coefficients = NULL, colors = "black", scale = c(4, 0.5),
+  min_freq = 3, max_words = Inf, random_order = FALSE,
   random_color = FALSE, rot_per = 0, bg_color = "#FFFFFF")
 }
 \arguments{
+\item{model_object}{lm. A linear model object. If this is passed, words, freq, and
+coefficients can be derived and do not need to be passed.}
+
 \item{words}{character. A vector of words to plot.}
 
 \item{freq}{numeric. The frequency of those words.}
@@ -37,11 +41,12 @@ Make a word cloud.
 \examples{
   data(iris)
   model <- lm(Petal.Width ~ Species, iris)
+  library(modelwordcloud)
+  colors <- c("red", "orange", "blue")
+  wordcloud(model, colors = colors)
   words_and_freqs <- rle(as.character(iris$Species))
   freqs <- words_and_freqs$lengths
   words <- words_and_freqs$values
   coefficients <- model$coefficients
-  colors <- c("red", "orange", "blue")
-  library(modelwordcloud)
   wordcloud(words = words, freq = freqs, coefficients = coefficients, colors = colors)
 }

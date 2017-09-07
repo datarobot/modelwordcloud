@@ -189,6 +189,69 @@ local({
     })
   })
 
+  test_that("it plots iris from raw inputs", {
+    data(iris)
+    model <- lm(Petal.Width ~ Species, iris)
+    colors <- c("red", "orange", "blue")
+    words_and_freqs <- rle(as.character(iris$Species))
+    freqs <- words_and_freqs$lengths
+    words <- words_and_freqs$values
+    coefficients <- model$coefficients
+    wc <- wordcloud(words = words,
+                    freq = freqs,
+                    coefficients = coefficients,
+                    colors = colors)
+    expect_true(wc$status)
+    expect_equal(length(wc$record), length(unique(iris$Species)))
+    for (i in seq_along(wc$record)) {
+      expect_equal(wc$record[[i]]$word, as.character(unique(iris$Species)[[i]]))
+      normalized_coeff <- (model$coefficients - min(model$coefficients)) / diff(range(model$coefficients))
+      expect_equal(wc$record[[i]]$coefficient, normalized_coeff[[i]])
+      expect_equal(wc$record[[i]]$color, colors[[i]])
+    }
+  })
+
+  test_that("it plots iris from the model object", {
+    data(iris)
+    model <- lm(Petal.Width ~ Species, iris)
+    colors <- c("red", "orange", "blue")
+    wc <- wordcloud(model, colors = colors)
+    expect_true(wc$status)
+    expect_equal(length(wc$record), length(unique(iris$Species)))
+    for (i in seq_along(wc$record)) {
+      expect_equal(wc$record[[i]]$word, as.character(unique(iris$Species)[[i]]))
+      normalized_coeff <- (model$coefficients - min(model$coefficients)) / diff(range(model$coefficients))
+      expect_equal(wc$record[[i]]$coefficient, normalized_coeff[[i]])
+      expect_equal(wc$record[[i]]$color, colors[[i]])
+    }
+  })
+
+  test_that("it plots iris from a model object with more than one parameter", {
+    data(iris)
+    model <- lm(Petal.Width ~ Species + Petal.Length, iris)
+    colors <- c("red", "orange", "blue")
+    expect_warning({wc <- wordcloud(model, colors = colors)}, "more than one parameter")
+    expect_true(wc$status)
+    expect_equal(length(wc$record), length(unique(iris$Species)))
+    for (i in seq_along(wc$record)) {
+      expect_equal(wc$record[[i]]$word, as.character(unique(iris$Species)[[i]]))
+      normalized_coeff <- (model$coefficients - min(model$coefficients)) / diff(range(model$coefficients))
+      expect_equal(wc$record[[i]]$coefficient, normalized_coeff[[i]])
+      expect_equal(wc$record[[i]]$color, colors[[i]])
+    }
+  })
+
+  test_that("it errors if nothing is passed", {
+    expect_error(wordcloud(), "either pass a model_object or words")
+  })
+
+  test_that("it errors if a model_object and words are both passed", {
+    data(iris)
+    model <- lm(Petal.Width ~ Species, iris)
+    expect_error(wordcloud(model_object = model, words = c("word", "otherword")),
+                 "should not be specified if a model_object is also passed")
+  })
+
   test_that("it errors if length(freq) != length(words)", {
     expect_error(wordcloud(words = c("word", "otherword", "thirdword"), freq = c(12, 13)),
                  "does not match length")
