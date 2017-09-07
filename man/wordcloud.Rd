@@ -10,7 +10,8 @@ wordcloud(model_object = NULL, words = NULL, freq = NULL,
   random_color = FALSE, rot_per = 0, bg_color = "#FFFFFF")
 }
 \arguments{
-\item{model_object}{lm. A linear model object.}
+\item{model_object}{lm. A linear model object. If this is passed, words, freq, and
+coefficients can be derived and do not need to be passed.}
 
 \item{words}{character. A vector of words to plot.}
 

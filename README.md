@@ -48,6 +48,15 @@ wordcloud(words = words, freq = freqs, coefficients = coefficients, colors = col
 
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png)
 
+You can also pass in the model object directly, if desired.
+
+
+```r
+wordcloud(model, colors = colors)
+```
+
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+
 ## Acknowledgements
 
 This work is based upon [the wordcloud package](https://cran.r-project.org/web/packages/wordcloud/index.html) by Ian Fellows, available from CRAN with the LGPL-2.1 license. This derivative work modified the original wordcloud package library by adding in logic to color words based on an additional variable, `coefficients`. The code was also cleaned, re-styled, and simplified. This package also removed some unneeded functionality from the wordcloud package, such as a C library for calculating overlap.

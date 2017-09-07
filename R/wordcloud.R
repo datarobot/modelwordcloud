@@ -1,6 +1,7 @@
 #' Make a word cloud.
 #'
-#' @param model_object lm. A linear model object.
+#' @param model_object lm. A linear model object. If this is passed, words, freq, and
+#'   coefficients can be derived and do not need to be passed.
 #' @param words character. A vector of words to plot.
 #' @param freq numeric. The frequency of those words.
 #' @param coefficients numeric. If provided, colors will be assigned according to coefficients.
@@ -32,10 +33,27 @@ wordcloud <- function(model_object = NULL, words = NULL, freq = NULL, coefficien
   if (is.null(model_object) && (is.null(freq) || is.null(words))) {
     stop("You must either pass a model_object or words and frequencies.")
   }
-  if (!is.null(model_object) && (!is.null(words) || !is.null(freq) || !is.nulll(coefficients))) {
+  if (!is.null(model_object) && (!is.null(words) || !is.null(freq) || !is.null(coefficients))) {
     stop("Words, frequencies, and coefficients will be derived from passed model object. ",
          "They should not be specified if a model_object is also passed.")
   }
+
+  if (!is.null(model_object)) {
+    features <- model_object$call[[2]][[3]]
+    if (length(features) == 1) {
+      text_feature <- as.character(features)
+      coefficients <- as.numeric(model_object$coefficients)
+    } else {
+      text_feature <- as.character(features[[2]])
+      warning("There is more than one parameter in your model. The first parameter, ",
+              sQuote(text_feature), " is being used as your text feature.")
+      coefficients <- as.numeric(model_object$coefficients[seq(length(model_object$coefficients) - length(features) + 2)])
+    }
+    words_and_freqs <- rle(as.character(model_object$model[[text_feature]]))
+    freq <- words_and_freqs$lengths
+    words <- words_and_freqs$values
+  }
+
   if (length(freq) != length(words)) {
     stop("Length of words does not match length of frequencies.")
   }
