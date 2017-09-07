@@ -189,6 +189,17 @@ local({
     })
   })
 
+  test_that("it errors if nothing is passed", {
+    expect_error(wordcloud(), "either pass a model_object or words")
+  })
+
+  test_that("it errors if a model_object and words are both passed", {
+    data(iris)
+    model <- lm(Petal.Width ~ Species, iris)
+    expect_error(wordcloud(model_object = model, words = c("word", "otherword")),
+                 "should not be specified if a model_object is also passed")
+  })
+
   test_that("it errors if length(freq) != length(words)", {
     expect_error(wordcloud(words = c("word", "otherword", "thirdword"), freq = c(12, 13)),
                  "does not match length")

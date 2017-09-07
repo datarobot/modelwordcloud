@@ -1,5 +1,6 @@
 #' Make a word cloud.
 #'
+#' @param model_object lm. A linear model object.
 #' @param words character. A vector of words to plot.
 #' @param freq numeric. The frequency of those words.
 #' @param coefficients numeric. If provided, colors will be assigned according to coefficients.
@@ -14,19 +15,27 @@
 #' @examples
 #'   data(iris)
 #'   model <- lm(Petal.Width ~ Species, iris)
+#'   library(modelwordcloud)
+#'   colors <- c("red", "orange", "blue")
+#'   wordcloud(model, colors = colors)
 #'   words_and_freqs <- rle(as.character(iris$Species))
 #'   freqs <- words_and_freqs$lengths
 #'   words <- words_and_freqs$values
 #'   coefficients <- model$coefficients
-#'   colors <- c("red", "orange", "blue")
-#'   library(modelwordcloud)
 #'   wordcloud(words = words, freq = freqs, coefficients = coefficients, colors = colors)
 #' @export
-wordcloud <- function(words, freq, coefficients = NULL, colors = "black",
-                      scale = c(4, 0.5), min_freq = 3, max_words = Inf,
+wordcloud <- function(model_object = NULL, words = NULL, freq = NULL, coefficients = NULL,
+                      colors = "black", scale = c(4, 0.5), min_freq = 3, max_words = Inf,
                       random_order = FALSE, random_color = FALSE, rot_per = 0,
                       bg_color = "#FFFFFF") { 
 
+  if (is.null(model_object) && (is.null(freq) || is.null(words))) {
+    stop("You must either pass a model_object or words and frequencies.")
+  }
+  if (!is.null(model_object) && (!is.null(words) || !is.null(freq) || !is.nulll(coefficients))) {
+    stop("Words, frequencies, and coefficients will be derived from passed model object. ",
+         "They should not be specified if a model_object is also passed.")
+  }
   if (length(freq) != length(words)) {
     stop("Length of words does not match length of frequencies.")
   }
